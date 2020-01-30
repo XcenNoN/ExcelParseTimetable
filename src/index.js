@@ -15,13 +15,12 @@ let mainWindow;
 const createWindow = () => {
   // Create the browser window.
   
-  xlsx.test();
   mainWindow = new BrowserWindow({
     width: 800,
     height: 600,
     webPreferences: {
       nodeIntegration: true
-  }
+    }
   });
 
   // and load the index.html of the app.
@@ -62,6 +61,11 @@ app.on('activate', () => {
   }
 });
 
+ipcMain.on('init', (event, users) => {
+  console.log('init')
+  let data = xlsx.test();
+  mainWindow.send('get-table', data)
+})
 /* ipcMain.on('', (event, data) => {
     something code 
  })*/
