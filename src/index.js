@@ -1,4 +1,4 @@
-const { app, BrowserWindow, ipcMain } = require('electron');
+const { app, BrowserWindow, ipcMain, dialog } = require('electron');
 const path = require('path');
 
 const xlsx = require("./node-xlsx")
@@ -61,11 +61,21 @@ app.on('activate', () => {
   }
 });
 
-ipcMain.on('init', (event, users) => {
-  console.log('init')
-  let data = xlsx.test();
-  mainWindow.send('get-table', data)
+ipcMain.on('init', (data) => {
+  dialog.showOpenDialog({ 
+    properties: ['openFile', 'multiSelections'],
+    filters: [
+      { name: 'Excel', extensions: ['xlsx'] }
+    ] 
+  }).then((val) => {
+    mainWindow.send('get-table', xlsx.getData(val))
+  }).catch(err => console.log(err))
+  
 })
+
+function getPath(){
+  
+}
 /* ipcMain.on('', (event, data) => {
     something code 
  })*/

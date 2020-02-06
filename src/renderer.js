@@ -1,7 +1,6 @@
-const { ipcRenderer } = require('electron')
+const { ipcRenderer, dialog } = require('electron')
 
 document.addEventListener("DOMContentLoaded", () => {
-    console.log("load")
     ipcRenderer.send('init');
 })
 
