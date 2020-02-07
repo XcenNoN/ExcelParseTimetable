@@ -1,9 +1,8 @@
 const { ipcRenderer, dialog } = require('electron')
 
-document.addEventListener("DOMContentLoaded", () => {
+document.getElementById('btnSelect').addEventListener('click', () => {
     ipcRenderer.send('init');
 })
-
 ipcRenderer.on('get-table', (event, data) => {
     console.log(data)
 })

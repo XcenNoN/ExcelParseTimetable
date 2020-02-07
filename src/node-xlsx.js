@@ -8,7 +8,14 @@ excel.test = function(){
 }
 
 excel.getData = path => {
-    let wb = xlsx.parse(path);
+    let wb = [];
+    if (!path.canceled){
+        if (path.filePaths.lenght > 0)
+            for (let i = 0; i < path.filePaths.lenght; i++)
+                wb.push(xlsx.parse(path.filePaths[i]))
+        else 
+            wb.push(xlsx.parse(path.filePaths[0]))
+    }
     return wb
 }
 
