@@ -1,21 +1,25 @@
 const xlsx = require('node-xlsx').default;
 const workbook = xlsx.parse(`${__dirname}/test.xlsx`);
 
-let excel = {};
+let excel = {
+    path: ""
+};
+
 
 excel.test = function(){
-    return workbook;
+    res = workbook
+    for (let i = 0; i < res.lenght; i++)
+        res[i].data.slice(8,44)
+    return res;
 }
 
 excel.getData = path => {
-    let wb = [];
-    if (!path.canceled){
-        if (path.filePaths.lenght > 0)
-            for (let i = 0; i < path.filePaths.lenght; i++)
-                wb.push(xlsx.parse(path.filePaths[i]))
-        else 
-            wb.push(xlsx.parse(path.filePaths[0]))
-    }
+    let wb;
+    if (!path.canceled)
+        wb = xlsx.parse(path.filePaths[0])
+
+    for (let i = 0; i < wb.length; i++)
+            wb[i].data = wb[i].data.slice(8,44)
     return wb
 }
 
